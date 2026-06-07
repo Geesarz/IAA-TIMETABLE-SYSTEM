@@ -1,0 +1,44 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "class-harmony",
+  "compatibility_date": "2025-09-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "src/server.ts",
+  "env": {
+    "development": {
+      "vars": {
+        "ENVIRONMENT": "development"
+      },
+      "build": {
+        "command": "npm run build:dev"
+      }
+    },
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production"
+      },
+      "routes": [
+        {
+          "pattern": "https://class-harmony.example.com/*",
+          "zone_name": "example.com"
+        }
+      ]
+    }
+  },
+  "build": {
+    "command": "npm run build",
+    "cwd": ".",
+    "watch_paths": ["src/**/*.{ts,tsx}"]
+  },
+  "dev": {
+    "port": 5173,
+    "local_protocol": "http"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "limits": {
+    "cpu_ms": 50
+  }
+}
+
